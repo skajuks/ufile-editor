@@ -2,20 +2,25 @@
 .ufile_app {
     width: 100%;
     height: 100%;
+    position: relative;
+
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 
     button {
         cursor: pointer;
         border: none;
     }
     .ufile_buttons {
-        width: 95%;
-        margin-left: 2.5%;
+        width: calc(100% - 104px);
+        margin-left: 50px;
         margin-bottom: 1px;
         height: 50px;
         background: #0f1623;
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        position: relative;
         button {
             width: fit-content;
             padding-inline: 10px;
@@ -24,12 +29,53 @@
             background: #3446eb;
             color: white;
         }
+        .ufile_search {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            input {
+                height: 38px;
+                width: 300px;
+                border: none;
+                background: #1b283f;
+                color: white;
+                &:focus {
+                    outline: 1px solid #2e456a;
+                }
+            }
+
+        }
+    }
+}
+
+.ufile_side_buttons {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 50px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    button {
+        height: 40px;
+        background: #3446eb;
+        transition: background 0.5s ease-in-out;
+        color: white;
+        &:hover {
+            background: #1b283f;
+        }
     }
 }
 
 .ufile_header {
-    width: 95%;
-    margin-left: 2.5%;
+    width: calc(100% - 104px);
+    margin-left: 50px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -39,19 +85,25 @@
         font-size: 2.5rem;
     }
     input {
-        background: #0f1623;
-        color: white;
-        width: 30%;
-        padding-block: 10px;
-        border-radius: 7px;
+        display: none;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        margin-bottom: 10px;
     }
 }
 
 
 .ufile_table_entity {
-    width: 95%;
     height: fit-content;
-    margin-left: 2.5%;
+    width: calc(100% - 104px);
+    margin-left: 50px;
+    &:last-child {
+        margin-bottom: 20px;
+    }
 
     header {
         width: 100%;
@@ -84,7 +136,7 @@
     width: 100%;
     height: fit-content;
     overflow-x: auto;
-    margin-bottom: 30px;
+    margin-bottom: 1px;
     &::-webkit-scrollbar {
         height: 10px;
     }

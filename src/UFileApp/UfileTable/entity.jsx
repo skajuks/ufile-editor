@@ -1,8 +1,8 @@
 
-import UF_FIELD_CONFIG from "../config";
+import { UF_FIELD_CONFIG } from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Listener from "../listener";
 
 const actions = {
@@ -87,13 +87,16 @@ const Table = ({data, fields, name}) => {
     );
 }
 
-const TableEntity = ({ name, data }) => {
+const TableEntity = ({ name, data, search }) => {
+    const [show, toggleShow] = useState(false);
 
-    const [show, toggleShow] = useState(true);
+    useEffect(() => {
+        toggleShow(data?.length > 0);
+    }, [data]);
 
     let start = 0;
     const fields = UF_FIELD_CONFIG[name].fields;
-    const parsedData = data.map((line, index) => {
+    const parsedData = data?.length ? data?.map((line, index) => {
         const parsedLine = {};
         for (const field in fields) {
             const length = fields[field].max;
@@ -103,7 +106,12 @@ const TableEntity = ({ name, data }) => {
         parsedLine['INDEX'] = index + 1;
         start = 0;
         return parsedLine;
-    });
+    }).filter(parsedLine => {
+        // Convert the parsedLine object to an array of its values, then convert that array to a string
+        const parsedLineString = Object.values(parsedLine).join(' ');
+        // Return true if the parsedLineString includes the search string, and false otherwise
+        return parsedLineString.includes(search);
+    }) : [];
 
     const addEntityRow = () => {
         Listener.worker(["ADD", UF_FIELD_CONFIG[name].name ,""])
@@ -113,7 +121,10 @@ const TableEntity = ({ name, data }) => {
     };
 
     return (
-        <div className="ufile_table_entity">
+        <div
+            className="ufile_table_entity"
+            id={`ufile_table_entity_${name}`}
+        >
             <header>
                 <button
                     onClick={() => setHideTable()}
@@ -130,7 +141,7 @@ const TableEntity = ({ name, data }) => {
                 <p>{`${name} [ ${parsedData?.length} ]`}</p>
             </header>
             {
-                show && <Table data={parsedData} fields={fields} name={name} />
+                show && data && <Table data={parsedData} fields={fields} name={name} />
             }
         </div>
     );

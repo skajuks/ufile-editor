@@ -76,10 +76,98 @@ const UF_FIELD_CONFIG = {
             }
         }
     },
+    Agreement_ON_US: {
+        name: "AGR_ON_US_ALL",
+        fields: {
+            TABLE_NAME: {
+                name: "UF Table",
+                max: 15,
+                readOnly: true,
+            },
+            ACTION: {
+                name: "Action",
+                max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
+            },
+            CARD_TYPE: {
+                name: "Card Type",
+                max: 2,
+            },
+            MERCHANT: {
+                name: "Merchant",
+                max: 15,
+            },
+            ISS_CMI: {
+                name: "ISS CMI",
+                max: 8,
+            },
+            IMPRINT_FEE: {
+                name: "Imprint Fee",
+                max: 6,
+            },
+            IMPRINT_MIN: {
+                name: "Imprint Min",
+                max: 8,
+            },
+            IMPRINT_MAX: {
+                name: "Imprint Max",
+                max: 12,
+            },
+            POS_FEE: {
+                name: "POS Fee",
+                max: 6,
+            },
+            POS_MIN: {
+                name: "POS Min",
+                max: 8,
+            },
+            POS_MAX: {
+                name: "POS Max",
+                max: 12,
+            },
+            CASHBACK_FEE: {
+                name: "Cashback Fee",
+                max: 6,
+            },
+            CASHBACK_MIN: {
+                name: "Cashback Min",
+                max: 8,
+            },
+            CASHBACK_MAX: {
+                name: "Cashback Max",
+                max: 12,
+            },
+            ATM_FEE: {
+                name: "ATM Fee",
+                max: 6,
+            },
+            ATM_MIN: {
+                name: "ATM Min",
+                max: 8,
+            },
+            ATM_MAX: {
+                name: "ATM Max",
+                max: 12,
+            },
+            TR_CCY: {
+                name: "Tr Currency",
+                max: 3,
+            },
+            BIN: {
+                name: "BIN",
+                max: 15,
+            },
+            ALGORITHM: {
+                name: "Algorithm",
+                max: 1
+            }
+        }
+    },
     Agreement: {
         name: "AGREEMENTS_ALL",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -164,7 +252,7 @@ const UF_FIELD_CONFIG = {
     Terminal: {
         name: "SET0_ACC_TR_ALL",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -218,7 +306,7 @@ const UF_FIELD_CONFIG = {
     Department: {
         name: "DEPARTMENTS_ALL",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -271,7 +359,7 @@ const UF_FIELD_CONFIG = {
     Merchant_Simple: {
         name: "MERCHANTS",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -355,7 +443,7 @@ const UF_FIELD_CONFIG = {
     Terminal_Simple: {
         name: "SET0_ACC_TRM",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -393,7 +481,7 @@ const UF_FIELD_CONFIG = {
     Agreement_Simple: {
         name: "AGREEMENTS",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -445,7 +533,7 @@ const UF_FIELD_CONFIG = {
     Department_Simple: {
         name: "DEPARTMENTS",
         fields: {
-                        TABLE_NAME: {
+            TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
                 readOnly: true,
@@ -496,4 +584,19 @@ const UF_FIELD_CONFIG = {
     }
 };
 
-export default UF_FIELD_CONFIG;
+const EntityTable = {
+    MERCHANTS_ALL: "Merchant",
+    SET0_ACC_TR_ALL: "Terminal",
+    AGREEMENTS_ALL: "Agreement",
+    DEPARTMENTS_ALL: "Department",
+    AGR_ON_US_ALL: "Agreement_ON_US",
+
+    // simple ufiles
+    MERCHANTS: "Merchant_Simple",
+    SET0_ACC_TRM: "Terminal_Simple",
+    AGREEMENTS: "Agreement_Simple",
+    DEPARTMENTS: "Department_Simple",
+
+};
+
+export {UF_FIELD_CONFIG, EntityTable };

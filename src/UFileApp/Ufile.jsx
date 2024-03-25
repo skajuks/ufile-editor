@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import "./Ufile.scss";
 import UfileTable from './UfileTable/table';
-
+import { EntityTable } from './config';
 
 const UfileApp = () => {
 
     const [fileData, setFileData] = useState({
         content: '',
         name: '',
-        lineCount: 0,
     });
 
     const handleFileRead = (e) => {
@@ -33,13 +32,25 @@ const UfileApp = () => {
         reader.readAsText(file, 'windows-1251');
     };
 
+    const scrollInView = (entity) => {
+        const element = document.getElementById(`ufile_table_entity_${entity}`);
+        if (element) element.scrollIntoView();
+    };
+
     return (
         <div className="ufile_app">
             <div className="ufile_header">
-                <h1>U-File editor</h1>
-                <input type="file" onChange={handleFileRead} />
+                <h1>U-File Editor</h1>
+                <label for="file-upload" class="custom-file-upload">
+                    {fileData.name || "Click to upload U-File"}
+                </label>
+                <input id="file-upload" type="file" onChange={handleFileRead} />
+            </div>
+            <div className="ufile_side_buttons">
                 {
-                    fileData?.name && <p>File Name: {fileData.name}</p>
+                    Object.values(EntityTable).map((entity, index) =>
+                        <button onClick={() => scrollInView(entity)} key={`scrollbtn_${index}`}>{entity.substring(0, 3)}</button>
+                    )
                 }
             </div>
             {
