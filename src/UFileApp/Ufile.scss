@@ -58,13 +58,13 @@
         height: 50px;
         display: flex;
         align-items: center;
-        gap: 10px;
         background:#1b283f;
         color: white;
         border-bottom: 1px solid #0c111c;
         p {
             font-size: 1.1rem;
             font-weight: 500;
+            margin-left: 10px;
         }
         button {
             width: 40px;
@@ -86,13 +86,13 @@
     overflow-x: auto;
     margin-bottom: 30px;
     &::-webkit-scrollbar {
-        height: 6px;
+        height: 10px;
     }
     &::-webkit-scrollbar-thumb {
         background: #3446eb;
     }
     &::-webkit-scrollbar-track {
-        background: #0c111c;
+        background: #0f1623;
     }
     .ufile_table_col {
         min-width: 120px;
@@ -151,7 +151,6 @@
                     height: calc(100% - 2px);
                     width: 100%;
                     &:focus {
-                        background: #3143dc;
                         outline: none;
                     }
                 }

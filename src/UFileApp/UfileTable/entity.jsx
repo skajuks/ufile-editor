@@ -1,7 +1,8 @@
 
 import UF_FIELD_CONFIG from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
 
 const actions = {
     I: "INSERT",
@@ -23,7 +24,7 @@ const Table = ({data, fields, name}) => {
                         data?.map((_, index) =>
                             <div
                                 className="ufile_table_data_row"
-                                key={`${name}_${index}`}
+                                key={`Delete_${index}`}
                                 style={{justifyContent: "center"}}
                             >
                                 <FaDeleteLeft color={"#fff"} size={"20px"}/>
@@ -65,6 +66,8 @@ const Table = ({data, fields, name}) => {
 
 const TableEntity = ({ name, data, cb}) => {
 
+    const [show, toggleShow] = useState(true);
+
     let start = 0;
     const fields = UF_FIELD_CONFIG[name].fields;
     const parsedData = data.map((line, index) => {
@@ -82,11 +85,30 @@ const TableEntity = ({ name, data, cb}) => {
     const addEntityRow = () => {
         cb(name);
     }
+    const setHideTable = () => {
+        toggleShow(prev => !prev);
+    }
 
     return (
         <div className="ufile_table_entity">
-            <header><button onClick={() => addEntityRow()}><IoMdAdd size={"20px"}/></button><p>{name}</p></header>
-            <Table data={parsedData} fields={fields} name={name} />
+            <header>
+                <button
+                    onClick={() => setHideTable()}
+                    style={{width: "25px", background: "#0c111c"}}
+                >
+                    {
+                        show ?
+                        <IoIosArrowUp size={"20px"}/>
+                        :
+                        <IoIosArrowDown size={"20px"}/>
+                    }
+                </button>
+                <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"}/></button>
+                <p>{name}</p>
+            </header>
+            {
+                show && <Table data={parsedData} fields={fields} name={name} />
+            }
         </div>
     );
 }
