@@ -22,7 +22,7 @@
             height: 40px;
             border-radius: 7px;
             margin-right: 10px;
-            background: #3446ee;
+            background: #3446eb;
             color: white;
         }
     }
@@ -60,11 +60,10 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        background: linear-gradient(to right, #3446eb, #1b283f 50%);
+        background:#1b283f;
         color: white;
         border-bottom: 1px solid #0c111c;
         p {
-            margin-left: 20px;
             font-size: 1.1rem;
             font-weight: 500;
         }
@@ -75,8 +74,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 5px;
-            background: #0c111c;
+            background: #3446eb;
             color: white;
+            margin-left: 20px;
         }
     }
 }
@@ -105,7 +105,7 @@
         .ufile_table_legend_field {
             width: 100%;
             height: 28px;
-            background: #1b283f;
+            background: #2e456a;
             color: white;
             display: flex;
             align-items: center;
@@ -129,6 +129,9 @@
                     input {
                         background: #1c2844;
                     }
+                    select {
+                        background: #1c2844;
+                    }
                 }
                 &:last-child {
                     border-bottom: 0;
@@ -138,6 +141,17 @@
                     color: white;
                     background: #151f31;
                     height: calc(100% - 2px);
+                    &:focus {
+                        background: #3143dc;
+                        outline: none;
+                    }
+                }
+                select {
+                    border: none;
+                    color: white;
+                    background: #151f31;
+                    height: calc(100% - 2px);
+                    width: 100%;
                     &:focus {
                         background: #3143dc;
                         outline: none;

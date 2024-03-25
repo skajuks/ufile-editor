@@ -40,10 +40,6 @@ const UfileApp = () => {
                 <input type="file" onChange={handleFileRead} />
                 <p>File Name: {fileData.name}</p>
             </div>
-            <div className="ufile_buttons">
-                <button>Save</button>
-                <button>Download</button>
-            </div>
             <UfileTable content={fileData.content}/>
         </div>
     );

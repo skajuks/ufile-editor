@@ -3,6 +3,16 @@ import UF_FIELD_CONFIG from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 
+const actions = {
+    I: "INSERT",
+    U: "UPDATE",
+    D: "DELETE",
+    0: "IN-STOCK",
+    1: "ACTIVE",
+    2: "UNINSTALL",
+    3: "CLOSED"
+};
+
 const Table = ({data, fields, name}) => {
     return (
         <div className="ufile_table_component">
@@ -16,7 +26,7 @@ const Table = ({data, fields, name}) => {
                                 key={`${name}_${index}`}
                                 style={{justifyContent: "center"}}
                             >
-                                <FaDeleteLeft color={"#fa4848"} size={"20px"}/>
+                                <FaDeleteLeft color={"#fff"} size={"20px"}/>
                             </div>
                         )
                     }
@@ -30,7 +40,18 @@ const Table = ({data, fields, name}) => {
                             {
                                 data?.map((line, index2) =>
                                     <div className="ufile_table_data_row" key={`${name}_${index}_${index2}`}>
-                                        <input type="text" defaultValue={line[field]} maxLength={fields[field].max}/>
+                                        {
+                                            fields[field]?.type === "select" ?
+                                            <select className="ufile_table_select">
+                                                {
+                                                    fields[field].options.map((option, index3) =>
+                                                        <option key={`${name}_${index}_${index2}_${index3}`} value={option}>{actions[option]}</option>
+                                                    )
+                                                }
+                                            </select>
+                                            :
+                                            <input type="text" defaultValue={line[field]} maxLength={fields[field].max}/>
+                                        }
                                     </div>
                                 )
                             }
@@ -39,11 +60,10 @@ const Table = ({data, fields, name}) => {
                 )
             }
         </div>
-
     );
 }
 
-const TableEntity = ({ name, data }) => {
+const TableEntity = ({ name, data, cb}) => {
 
     let start = 0;
     const fields = UF_FIELD_CONFIG[name].fields;
@@ -59,9 +79,13 @@ const TableEntity = ({ name, data }) => {
         return parsedLine;
     });
 
+    const addEntityRow = () => {
+        cb(name);
+    }
+
     return (
         <div className="ufile_table_entity">
-            <header><p>{name}</p><button><IoMdAdd size={"20px"}/></button></header>
+            <header><button onClick={() => addEntityRow()}><IoMdAdd size={"20px"}/></button><p>{name}</p></header>
             <Table data={parsedData} fields={fields} name={name} />
         </div>
     );

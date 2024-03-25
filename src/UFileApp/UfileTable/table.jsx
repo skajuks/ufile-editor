@@ -1,6 +1,7 @@
 
 import "./../Ufile.scss";
 import TableEntity from "./entity";
+import { useState, useEffect } from "react";
 
 const EntityTable = {
     MERCHANTS_ALL: "Merchant",
@@ -17,25 +18,43 @@ const EntityTable = {
 };
 
 const UfileTable = ({ content }) => {
-    const lines = content.split('\n');
 
-    const entities = lines.reduce((acc, line) => {
-        const entityType = line.substring(0, 15).replace(/\s/g, '');
-        if (entityType in EntityTable) {
-            if (!acc[entityType]) {
-                acc[entityType] = [];
-            }
-            acc[entityType].push(line);
+    const [parsed, setEntities] = useState({});
+
+    useEffect(() => {
+        const getEntities = () => {
+            const lines = content.split('\n');
+            const e = lines.reduce((acc, line) => {
+                const entityType = line.substring(0, 15).replace(/\s/g, '');
+                if (entityType in EntityTable) {
+                    if (!acc[entityType]) {
+                        acc[entityType] = [];
+                    }
+                    acc[entityType].push(line);
+                }
+                return acc;
+            }, {});
+            return e;
         }
-        return acc;
-    }, {});
+        setEntities(getEntities());
+    }, [content]);
 
+    const addRow = (name) => {
+        console.log(name)
+    }
     return (
-        <div className="ufile_entities">
-            {Object.keys(entities).map((entityType) => (
-                <TableEntity key={entityType} name={EntityTable[entityType]} data={entities[entityType]} />
-            ))}
-        </div>
+        <>
+            <div className="ufile_buttons">
+                <button>Save</button>
+                <button>Download</button>
+            </div>
+            <div className="ufile_entities">
+                {Object.keys(parsed).map((entityType) => (
+                    <TableEntity name={EntityTable[entityType]} data={parsed[entityType]} cb={(name) => addRow(name)}/>
+                ))}
+            </div>
+        </>
+
     );
 };
 export default UfileTable;

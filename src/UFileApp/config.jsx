@@ -9,6 +9,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             MERCHANT: {
                 name: "Merchant",
@@ -81,6 +83,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             CARD_TYPE: {
                 name: "Card Type",
@@ -162,6 +166,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             TERMINAL_ID: {
                 name: "Terminal ID",
@@ -210,6 +216,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             CARD_TYPE: {
                 name: "Card Type",
@@ -259,6 +267,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             MERCHANT: {
                 name: "Merchant",
@@ -339,6 +349,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             TERMINAL_ID: {
                 name: "Terminal ID",
@@ -359,6 +371,8 @@ const UF_FIELD_CONFIG = {
             STATUS: {
                 name: "Status",
                 max: 1,
+                type: "select",
+                options: [0,1,2,3],
             }
         }
     },
@@ -371,6 +385,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             CARD_TYPE: {
                 name: "Card Type",
@@ -419,6 +435,8 @@ const UF_FIELD_CONFIG = {
             ACTION: {
                 name: "Action",
                 max: 1,
+                type: "select",
+                options: ["I", "U", "D"],
             },
             CARD_TYPE: {
                 name: "Card Type",
