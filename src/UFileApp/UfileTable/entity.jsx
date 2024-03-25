@@ -3,6 +3,7 @@ import UF_FIELD_CONFIG from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
+import Listener from "../listener";
 
 const actions = {
     I: "INSERT",
@@ -15,6 +16,11 @@ const actions = {
 };
 
 const Table = ({data, fields, name}) => {
+
+    const removeEntityRow = (rowId) => {
+        Listener.worker(["REMOVE", UF_FIELD_CONFIG[name].name, rowId]);
+    };
+
     return (
         <div className="ufile_table_component">
             <div className="ufile_table_col" style={{minWidth: "30px", width: "70px"}}>
@@ -26,8 +32,25 @@ const Table = ({data, fields, name}) => {
                                 className="ufile_table_data_row"
                                 key={`Delete_${index}`}
                                 style={{justifyContent: "center"}}
+                                onClick={() => removeEntityRow(index)}
                             >
                                 <FaDeleteLeft color={"#fff"} size={"20px"}/>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+            <div className="ufile_table_col" style={{minWidth: "30px", width: "70px"}}>
+                <div className="ufile_table_legend_field"><p>Nr.</p></div>
+                <div className="ufile_table_data">
+                    {
+                        data?.map((_, index) =>
+                            <div
+                                className="ufile_table_data_row"
+                                key={`idx_${index}`}
+                                style={{justifyContent: "center"}}
+                            >
+                                {index + 1}
                             </div>
                         )
                     }
@@ -51,7 +74,7 @@ const Table = ({data, fields, name}) => {
                                                 }
                                             </select>
                                             :
-                                            <input type="text" defaultValue={line[field]} maxLength={fields[field].max}/>
+                                            <input type="text" defaultValue={line[field]} maxLength={fields[field].max} readOnly={fields[field]?.readOnly}/>
                                         }
                                     </div>
                                 )
@@ -64,7 +87,7 @@ const Table = ({data, fields, name}) => {
     );
 }
 
-const TableEntity = ({ name, data, cb}) => {
+const TableEntity = ({ name, data }) => {
 
     const [show, toggleShow] = useState(true);
 
@@ -83,11 +106,11 @@ const TableEntity = ({ name, data, cb}) => {
     });
 
     const addEntityRow = () => {
-        cb(name);
-    }
+        Listener.worker(["ADD", UF_FIELD_CONFIG[name].name ,""])
+    };
     const setHideTable = () => {
         toggleShow(prev => !prev);
-    }
+    };
 
     return (
         <div className="ufile_table_entity">
@@ -104,7 +127,7 @@ const TableEntity = ({ name, data, cb}) => {
                     }
                 </button>
                 <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"}/></button>
-                <p>{name}</p>
+                <p>{`${name} [ ${parsedData?.length} ]`}</p>
             </header>
             {
                 show && <Table data={parsedData} fields={fields} name={name} />

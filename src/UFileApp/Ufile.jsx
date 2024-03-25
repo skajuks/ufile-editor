@@ -38,9 +38,13 @@ const UfileApp = () => {
             <div className="ufile_header">
                 <h1>U-File editor</h1>
                 <input type="file" onChange={handleFileRead} />
-                <p>File Name: {fileData.name}</p>
+                {
+                    fileData?.name && <p>File Name: {fileData.name}</p>
+                }
             </div>
-            <UfileTable content={fileData.content}/>
+            {
+                fileData?.content && <UfileTable content={fileData.content}/>
+            }
         </div>
     );
 }

@@ -1,10 +1,12 @@
 
 const UF_FIELD_CONFIG = {
     Merchant: {
+        name: "MERCHANTS_ALL",
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -75,10 +77,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Agreement: {
+        name: "AGREEMENTS_ALL",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -158,10 +162,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Terminal: {
+        name: "SET0_ACC_TR_ALL",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -210,10 +216,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Department: {
+        name: "DEPARTMENTS_ALL",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -261,10 +269,12 @@ const UF_FIELD_CONFIG = {
     },
     // Simple u-file
     Merchant_Simple: {
+        name: "MERCHANTS",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -343,10 +353,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Terminal_Simple: {
+        name: "SET0_ACC_TRM",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -379,10 +391,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Agreement_Simple: {
+        name: "AGREEMENTS",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
@@ -429,10 +443,12 @@ const UF_FIELD_CONFIG = {
         }
     },
     Department_Simple: {
+        name: "DEPARTMENTS",
         fields: {
-            TABLE_NAME: {
+                        TABLE_NAME: {
                 name: "UF Table",
                 max: 15,
+                readOnly: true,
             },
             ACTION: {
                 name: "Action",
