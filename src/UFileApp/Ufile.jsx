@@ -30,7 +30,7 @@ const UfileApp = () => {
                 footer
             });
         };
-        reader.readAsText(file);
+        reader.readAsText(file, 'windows-1251');
     };
 
     return (

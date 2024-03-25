@@ -192,6 +192,8 @@ const UF_FIELD_CONFIG = {
             STATUS: {
                 name: "Status",
                 max: 1,
+                type: "select",
+                options: [0,1,2,3],
             },
             SERIAL_NR: {
                 name: "Serial Number",

@@ -20,8 +20,7 @@
             width: fit-content;
             padding-inline: 10px;
             height: 40px;
-            border-radius: 7px;
-            margin-right: 10px;
+            margin-right: 5px;
             background: #3446eb;
             color: white;
         }
@@ -68,15 +67,14 @@
             font-weight: 500;
         }
         button {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 5px;
             background: #3446eb;
             color: white;
-            margin-left: 20px;
+            margin-left: 5px;
         }
     }
 }
