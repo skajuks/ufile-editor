@@ -1,6 +1,6 @@
 {
   "name": "ufile_main",
-  "homepage": "https://skajuks.github.io/ufile-editor",
+  "homepage": "http://skajuks.github.io/ufile-editor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
