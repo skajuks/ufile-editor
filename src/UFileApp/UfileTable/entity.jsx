@@ -2,7 +2,7 @@
 import { UF_FIELD_CONFIG } from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Listener from "../listener";
 
 const actions = {
@@ -15,15 +15,45 @@ const actions = {
     3: "CLOSED"
 };
 
-const Table = ({data, fields, name}) => {
+const TextInput = ({ id, line, field, maxLength, readOnly, tableValueStore }) => {
+    const [internalValue, setInternalValue] = useState(line[field])
+    const ref = useRef()
+
+    const changed = (e) => {
+        setInternalValue(e.target.value)
+    }
+    const unfocus = () => {
+        setInternalValue(line[field])
+    }
+    const keyEvent = (e) => {
+        if (e.key === 'Enter') {
+            line[field] = internalValue
+            tableValueStore(id, internalValue)
+        } else if (e.key === "Escape") {
+            unfocus()
+            if (ref.current)
+                ref.current.blur()
+        }
+    }
+
+    return <input ref={ref} value={internalValue} maxLength={maxLength} readOnly={readOnly} onChange={readOnly ? undefined : changed} onBlur={readOnly ? undefined : unfocus} onKeyDown={readOnly ? undefined : keyEvent} />
+}
+
+const Table = ({ data, fields, name }) => {
+    const [forceUpdate, setForceUpdate] = useState(new Date)
+    useEffect(() => { }, [forceUpdate])
 
     const removeEntityRow = (rowId) => {
         Listener.worker(["REMOVE", UF_FIELD_CONFIG[name].name, rowId]);
     };
 
+    const tableInputStore = (id, value) => {
+        console.log(`Changed field ${id.index} ${id.index2}: ${value}`)
+    }
+
     return (
         <div className="ufile_table_component">
-            <div className="ufile_table_col" style={{minWidth: "30px", width: "70px"}}>
+            <div className="ufile_table_col" style={{ minWidth: "30px", width: "70px" }}>
                 <div className="ufile_table_legend_field" />
                 <div className="ufile_table_data">
                     {
@@ -31,16 +61,16 @@ const Table = ({data, fields, name}) => {
                             <div
                                 className="ufile_table_data_row"
                                 key={`Delete_${index}`}
-                                style={{justifyContent: "center"}}
+                                style={{ justifyContent: "center" }}
                                 onClick={() => removeEntityRow(index)}
                             >
-                                <FaDeleteLeft color={"#fff"} size={"20px"}/>
+                                <FaDeleteLeft color={"#fff"} size={"20px"} />
                             </div>
                         )
                     }
                 </div>
             </div>
-            <div className="ufile_table_col" style={{minWidth: "30px", width: "70px"}}>
+            <div className="ufile_table_col" style={{ minWidth: "30px", width: "70px" }}>
                 <div className="ufile_table_legend_field"><p>Nr.</p></div>
                 <div className="ufile_table_data">
                     {
@@ -48,7 +78,7 @@ const Table = ({data, fields, name}) => {
                             <div
                                 className="ufile_table_data_row"
                                 key={`idx_${index}`}
-                                style={{justifyContent: "center"}}
+                                style={{ justifyContent: "center" }}
                             >
                                 {index + 1}
                             </div>
@@ -66,15 +96,15 @@ const Table = ({data, fields, name}) => {
                                     <div className="ufile_table_data_row" key={`${name}_${index}_${index2}`}>
                                         {
                                             fields[field]?.type === "select" ?
-                                            <select className="ufile_table_select">
-                                                {
-                                                    fields[field].options.map((option, index3) =>
-                                                        <option key={`${name}_${index}_${index2}_${index3}`} value={option}>{actions[option]}</option>
-                                                    )
-                                                }
-                                            </select>
-                                            :
-                                            <input type="text" value={line[field]} maxLength={fields[field].max} readOnly={fields[field]?.readOnly}/>
+                                                <select className="ufile_table_select">
+                                                    {
+                                                        fields[field].options.map((option, index3) =>
+                                                            <option key={`${name}_${index}_${index2}_${index3}`} value={option}>{actions[option]}</option>
+                                                        )
+                                                    }
+                                                </select>
+                                                :
+                                                <TextInput id={{ index, index2 }} tableValueStore={tableInputStore} line={line} field={field} maxLength={fields[field].max} readOnly={fields[field]?.readOnly} />
                                         }
                                     </div>
                                 )
@@ -114,7 +144,7 @@ const TableEntity = ({ name, data, search }) => {
     }) : [];
 
     const addEntityRow = () => {
-        Listener.worker(["ADD", UF_FIELD_CONFIG[name].name ,""])
+        Listener.worker(["ADD", UF_FIELD_CONFIG[name].name, ""])
     };
     const setHideTable = () => {
         toggleShow(prev => !prev);
@@ -128,16 +158,16 @@ const TableEntity = ({ name, data, search }) => {
             <header>
                 <button
                     onClick={() => setHideTable()}
-                    style={{width: "25px", background: "#0c111c"}}
+                    style={{ width: "25px", background: "#0c111c" }}
                 >
                     {
                         show ?
-                        <IoIosArrowUp size={"20px"}/>
-                        :
-                        <IoIosArrowDown size={"20px"}/>
+                            <IoIosArrowUp size={"20px"} />
+                            :
+                            <IoIosArrowDown size={"20px"} />
                     }
                 </button>
-                <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"}/></button>
+                <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"} /></button>
                 <p>{`${name} [ ${parsedData?.length} ]`}</p>
             </header>
             {

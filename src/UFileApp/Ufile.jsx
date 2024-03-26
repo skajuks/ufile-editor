@@ -41,7 +41,7 @@ const UfileApp = () => {
         <div className="ufile_app">
             <div className="ufile_header">
                 <h1>U-File Editor</h1>
-                <label for="file-upload" class="custom-file-upload">
+                <label htmlFor="file-upload" className="custom-file-upload">
                     {fileData.name || "Click to upload U-File"}
                 </label>
                 <input id="file-upload" type="file" onChange={handleFileRead} />
