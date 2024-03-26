@@ -74,7 +74,7 @@ const Table = ({data, fields, name}) => {
                                                 }
                                             </select>
                                             :
-                                            <input type="text" defaultValue={line[field]} maxLength={fields[field].max} readOnly={fields[field]?.readOnly}/>
+                                            <input type="text" value={line[field]} maxLength={fields[field].max} readOnly={fields[field]?.readOnly}/>
                                         }
                                     </div>
                                 )
