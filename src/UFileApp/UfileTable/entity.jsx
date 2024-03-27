@@ -2,6 +2,8 @@
 import { UF_FIELD_CONFIG } from "../config";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { TbForbid } from "react-icons/tb";
+
 import { useState, useEffect, useRef } from "react";
 import Listener from "../listener";
 
@@ -17,6 +19,10 @@ const actions = {
 
 const TextInput = ({ id, line, field, maxLength, readOnly, tableValueStore }) => {
     const [internalValue, setInternalValue] = useState(line[field])
+
+    useEffect(() => {
+        setInternalValue(line[field]);
+    }, [line])
 
     const ref = useRef()
 
@@ -44,12 +50,14 @@ const Table = ({ data, fields, name }) => {
     const [forceUpdate, setForceUpdate] = useState(new Date)
     useEffect(() => { }, [forceUpdate])
 
+    const isDeletable = UF_FIELD_CONFIG[name]?.deletable;
+
     const removeEntityRow = (rowId) => {
         Listener.worker(["REMOVE", UF_FIELD_CONFIG[name].name, rowId]);
     };
 
     const tableInputStore = (id, value) => {
-        console.log(`Changed field ${id.index} ${id.index2}: ${value}`)
+        //console.log(`Changed field ${id.index} ${id.index2}: ${value}`)
     }
 
     return (
@@ -63,9 +71,19 @@ const Table = ({ data, fields, name }) => {
                                 className="ufile_table_data_row"
                                 key={`Delete_${index}`}
                                 style={{ justifyContent: "center" }}
-                                onClick={() => removeEntityRow(index)}
+                                onClick={() => {
+                                    if (isDeletable) {
+                                        removeEntityRow(index)
+                                    }
+                                }}
                             >
-                                <FaDeleteLeft color={"#fff"} size={"20px"} />
+                                {
+                                    isDeletable ?
+                                    <FaDeleteLeft color={"#fff"} size={"20px"} />
+                                    :
+                                    <TbForbid color={"#fcc603"} size={"20px"}/>
+                                }
+
                             </div>
                         )
                     }
@@ -126,6 +144,8 @@ const TableEntity = ({ name, data, search }) => {
     }, [data]);
 
     const fields = UF_FIELD_CONFIG[name].fields;
+    const isDeletable = UF_FIELD_CONFIG[name].deletable;
+
     const parsedData = data.filter(parsedLine => {
         // Convert the parsedLine object to an array of its values, then convert that array to a string
         const parsedLineString = Object.values(parsedLine).join(' ');
@@ -157,7 +177,9 @@ const TableEntity = ({ name, data, search }) => {
                             <IoIosArrowDown size={"20px"} />
                     }
                 </button>
-                <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"} /></button>
+                {
+                    isDeletable && <button onClick={() => addEntityRow()}><IoMdAdd size={"20px"} /></button>
+                }
                 <p>{`${name} [ ${parsedData?.length} ]`}</p>
             </header>
             {

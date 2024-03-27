@@ -1,6 +1,8 @@
 
 const UF_FIELD_CONFIG = {
     Header: {
+        name: "00",
+        deletable: false,
         fields: {
             MTID: {
                 name: "MTID",
@@ -22,6 +24,8 @@ const UF_FIELD_CONFIG = {
         },
     },
     Footer: {
+        name: "99",
+        deletable: false,
         fields: {
             MTID: {
                 name: "MTID",
@@ -40,6 +44,7 @@ const UF_FIELD_CONFIG = {
     },
     Merchant: {
         name: "MERCHANTS_ALL",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -116,6 +121,7 @@ const UF_FIELD_CONFIG = {
     },
     Agreement_ON_US: {
         name: "AGR_ON_US_ALL",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -204,6 +210,7 @@ const UF_FIELD_CONFIG = {
     },
     Agreement: {
         name: "AGREEMENTS_ALL",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -289,6 +296,7 @@ const UF_FIELD_CONFIG = {
     },
     Terminal: {
         name: "SET0_ACC_TR_ALL",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -343,6 +351,7 @@ const UF_FIELD_CONFIG = {
     },
     Department: {
         name: "DEPARTMENTS_ALL",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -396,6 +405,7 @@ const UF_FIELD_CONFIG = {
     // Simple u-file
     Merchant_Simple: {
         name: "MERCHANTS",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -480,6 +490,7 @@ const UF_FIELD_CONFIG = {
     },
     Terminal_Simple: {
         name: "SET0_ACC_TRM",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -518,6 +529,7 @@ const UF_FIELD_CONFIG = {
     },
     Agreement_Simple: {
         name: "AGREEMENTS",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -570,6 +582,7 @@ const UF_FIELD_CONFIG = {
     },
     Department_Simple: {
         name: "DEPARTMENTS",
+        deletable: true,
         fields: {
             TABLE_NAME: {
                 name: "UF Table",
@@ -623,9 +636,8 @@ const UF_FIELD_CONFIG = {
 };
 
 const EntityTable = {
-    // header / footer
+    // header
     "00": "Header",
-    "99": "Footer",
     // ufiles
     MERCHANTS_ALL: "Merchant",
     SET0_ACC_TR_ALL: "Terminal",
@@ -638,7 +650,21 @@ const EntityTable = {
     SET0_ACC_TRM: "Terminal_Simple",
     AGREEMENTS: "Agreement_Simple",
     DEPARTMENTS: "Department_Simple",
-
+    // footer
+    "99": "Footer",
 };
 
-export {UF_FIELD_CONFIG, EntityTable };
+const order = [
+    "00", "MERCHANTS_ALL",
+    "SET0_ACC_TR_ALL",
+    "AGREEMENTS_ALL",
+    "DEPARTMENTS_ALL",
+    "AGR_ON_US_ALL",
+    "MERCHANTS",
+    "SET0_ACC_TRM",
+    "AGREEMENTS",
+    "DEPARTMENTS",
+    "99"
+];
+
+export {UF_FIELD_CONFIG, EntityTable, order };

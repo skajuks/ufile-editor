@@ -25,14 +25,13 @@
             width: fit-content;
             padding-inline: 10px;
             height: 40px;
-            margin-right: 5px;
             background: #3446eb;
             color: white;
         }
         .ufile_search {
             position: absolute;
             top: 5px;
-            left: 5px;
+            left: 0px;
             height: 40px;
             display: flex;
             align-items: center;
@@ -193,7 +192,7 @@
                     background: #151f31;
                     height: calc(100% - 2px);
                     &:focus {
-                        background: #3143dc;
+                        background: #2e456a;
                         outline: none;
                     }
                 }

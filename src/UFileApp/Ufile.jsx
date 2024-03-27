@@ -64,7 +64,6 @@ const UfileApp = () => {
                     setFileData(prevFileData => {
                         const updatedEntity = [...prevFileData.content[instruction[1]].slice(0, indexToRemove), ...prevFileData.content[instruction[1]].slice(indexToRemove + 1)];
                         const updatedContent = { ...prevFileData.content, [instruction[1]]: updatedEntity };
-                        console.log({ ...prevFileData, content: updatedContent })
                         return { ...prevFileData, content: updatedContent };
                     });
                     break;
@@ -95,7 +94,7 @@ const UfileApp = () => {
                 }
             </div>
             {
-                fileData?.content && <UfileTable content={fileData.content}/>
+                fileData?.content && <UfileTable content={fileData.content} name={fileData.name} />
             }
         </div>
     );

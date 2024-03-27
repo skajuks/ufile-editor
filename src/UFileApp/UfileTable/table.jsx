@@ -4,11 +4,19 @@ import TableEntity from "./entity";
 import { useState } from "react";
 
 import { IoMdSearch } from "react-icons/io";
-import { EntityTable } from "../config";
+import { EntityTable, order } from "../config";
 import { TextEncoder } from 'text-encoding';
+import { ObjectToUf } from "../functions/fn";
 
 
-const UfileTable = ({ content }) => {
+const orderedEntities = [];
+order.forEach(key => {
+    if (key in EntityTable) {
+        orderedEntities.push({ key, value: EntityTable[key] });
+    }
+});
+
+const UfileTable = ({ content, name }) => {
 
     const [searchString, setSearchString] = useState("");
 
@@ -18,20 +26,14 @@ const UfileTable = ({ content }) => {
     };
 
     const prepareDownload = () => {
-        const data = [];
-
-        // Create a new TextEncoder for Windows-1251
+        const ufile = ObjectToUf(content);
         const encoder = new TextEncoder('windows-1251');
-
-        // Encode the data array as Windows-1251
-        const encodedData = encoder.encode(data.join('\n'));
-        // Create a new Blob object from the encoded data
-        const blob = new Blob([encodedData], { type: 'text/plain' });
-        // Create a download link for the Blob object
+        encoder.encode(ufile);
+        const blob = new Blob([ufile], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
+        link.download = name;
         link.href = url;
-        link.download = 'UFile.tx0';
 
         // Append the download link to the document body and click it
         document.body.appendChild(link);
@@ -53,8 +55,8 @@ const UfileTable = ({ content }) => {
             </div>
             <div className="ufile_entities">
                 {
-                    Object.keys(EntityTable).map((entityType, index) =>
-                        <TableEntity name={EntityTable[entityType]} data={content[entityType] || []} key={`table_${index}`} search={searchString} />
+                    orderedEntities.map((entityType, index) =>
+                        <TableEntity name={entityType.value} data={content[entityType.key] || []} key={`table_${index}`} search={searchString} />
                     )
                 }
             </div>

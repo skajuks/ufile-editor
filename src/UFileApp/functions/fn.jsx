@@ -56,4 +56,39 @@ const UfToObject = (ufile) => {
     return parsedData;
 };
 
-export { UfToObject };
+const processEntity = (entity, obj) => {
+    let result = '';
+    obj[entity].forEach((line) => {
+        let lineStr = '';
+        for (const field in line) {
+            if (field === 'INDEX') continue;
+            lineStr += line[field].padEnd(UF_FIELD_CONFIG[EntityTable[entity]].fields[field].max);
+        }
+        result += lineStr + '\n';
+    });
+    return result;
+};
+
+const ObjectToUf = (obj) => {
+    let ufile = '';
+
+    // Handle Header first
+    if (obj["00"]) {
+        ufile += processEntity("00", obj);
+    }
+
+    // Handle other entities
+    for (const entity in obj) {
+        if (entity === "00" || entity === "99") continue;
+        ufile += processEntity(entity, obj);
+    }
+
+    // Handle Footer last
+    if (obj["99"]) {
+        ufile += processEntity("99", obj);
+    }
+
+    return ufile;
+};
+
+export { UfToObject, ObjectToUf };
