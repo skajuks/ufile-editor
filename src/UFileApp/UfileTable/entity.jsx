@@ -17,6 +17,7 @@ const actions = {
 
 const TextInput = ({ id, line, field, maxLength, readOnly, tableValueStore }) => {
     const [internalValue, setInternalValue] = useState(line[field])
+
     const ref = useRef()
 
     const changed = (e) => {
@@ -124,24 +125,13 @@ const TableEntity = ({ name, data, search }) => {
         toggleShow(data?.length > 0);
     }, [data]);
 
-    let start = 0;
     const fields = UF_FIELD_CONFIG[name].fields;
-    const parsedData = data?.length ? data?.map((line, index) => {
-        const parsedLine = {};
-        for (const field in fields) {
-            const length = fields[field].max;
-            parsedLine[field] = line.substring(start, start + length).trim();
-            start += length;
-        }
-        parsedLine['INDEX'] = index + 1;
-        start = 0;
-        return parsedLine;
-    }).filter(parsedLine => {
+    const parsedData = data.filter(parsedLine => {
         // Convert the parsedLine object to an array of its values, then convert that array to a string
         const parsedLineString = Object.values(parsedLine).join(' ');
         // Return true if the parsedLineString includes the search string, and false otherwise
         return parsedLineString.includes(search);
-    }) : [];
+    });
 
     const addEntityRow = () => {
         Listener.worker(["ADD", UF_FIELD_CONFIG[name].name, ""])

@@ -1,5 +1,43 @@
 
 const UF_FIELD_CONFIG = {
+    Header: {
+        fields: {
+            MTID: {
+                name: "MTID",
+                max: 2,
+                readOnly: true,
+            },
+            FILE_NAME: {
+                name: "File Name",
+                max: 12,
+            },
+            LAST_FILE: {
+                name: "Last File",
+                max: 12,
+            },
+            VERSION: {
+                name: "Version",
+                max: 4,
+            }
+        },
+    },
+    Footer: {
+        fields: {
+            MTID: {
+                name: "MTID",
+                max: 2,
+                readOnly: true,
+            },
+            FILE_NAME: {
+                name: "File Name",
+                max: 12,
+            },
+            COUNT: {
+                name: "Record count",
+                max: 10,
+            }
+        },
+    },
     Merchant: {
         name: "MERCHANTS_ALL",
         fields: {
@@ -585,6 +623,10 @@ const UF_FIELD_CONFIG = {
 };
 
 const EntityTable = {
+    // header / footer
+    "00": "Header",
+    "99": "Footer",
+    // ufiles
     MERCHANTS_ALL: "Merchant",
     SET0_ACC_TR_ALL: "Terminal",
     AGREEMENTS_ALL: "Agreement",
