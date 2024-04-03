@@ -4,18 +4,11 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd, IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { TbForbid } from "react-icons/tb";
 
+import { Actions } from "../config";
 import { useState, useEffect, useRef } from "react";
 import Listener from "../listener";
 
-const actions = {
-    I: "INSERT",
-    U: "UPDATE",
-    D: "DELETE",
-    0: "IN-STOCK",
-    1: "ACTIVE",
-    2: "UNINSTALL",
-    3: "CLOSED"
-};
+
 
 const TextInput = ({ id, line, field, maxLength, readOnly, tableValueStore }) => {
     const [internalValue, setInternalValue] = useState(line[field])
@@ -118,7 +111,7 @@ const Table = ({ data, fields, name }) => {
                                                 <select className="ufile_table_select">
                                                     {
                                                         fields[field].options.map((option, index3) =>
-                                                            <option key={`${name}_${index}_${index2}_${index3}`} value={option}>{actions[option]}</option>
+                                                            <option key={`${name}_${index}_${index2}_${index3}`} value={option}>{Actions[option]}</option>
                                                         )
                                                     }
                                                 </select>

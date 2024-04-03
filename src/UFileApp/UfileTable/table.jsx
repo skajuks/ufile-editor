@@ -4,13 +4,13 @@ import TableEntity from "./entity";
 import { useState } from "react";
 
 import { IoMdSearch } from "react-icons/io";
-import { EntityTable, order } from "../config";
+import { EntityTable, Order } from "../config";
 import { TextEncoder } from 'text-encoding';
 import { ObjectToUf } from "../functions/fn";
 
 
 const orderedEntities = [];
-order.forEach(key => {
+Order.forEach(key => {
     if (key in EntityTable) {
         orderedEntities.push({ key, value: EntityTable[key] });
     }
